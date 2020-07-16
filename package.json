@@ -2,10 +2,11 @@
   "name": "ReptileCove-Backend",
   "version": "1.0.0",
   "main": "index.js",
+  "repository": "git@github.com:Beedeeboom/ReptileCove-Backend.git",
+  "author": "Beedeeboom <stephanie.duffieux@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js"
   },
   "dependencies": {
     "express": "^4.17.1"
