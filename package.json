@@ -1,0 +1,9 @@
+{
+  "name": "ReptileCove-Backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "Dependencies": {
+    "express": "^4.17.1"
+  }
+}
