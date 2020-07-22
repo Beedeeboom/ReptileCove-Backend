@@ -30,7 +30,7 @@ mongoose.connect(
 // Routes for pages 
 
 var usersRouter = require('./routes/users')
-var blogRouter = require('./routes/blog')
+var blogRouter = require('./routes/blog_routes')
 var rescuesRouter = require('./routes/rescues')
 var snakesRouter = require('./routes/snakes')
 
