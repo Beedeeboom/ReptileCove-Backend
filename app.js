@@ -1,4 +1,4 @@
-const http = require("http")
+var http = require("http")
 var createError = require('http-errors')
 var express = require('express')
 var path = require('path')
@@ -6,7 +6,28 @@ var cookieParser = require('cookie-parser')
 var bodyParser = require("body-parser")
 var logger = require('morgan')
 var cors = require('cors')
+var mongoose = require("mongoose");
+var MongoClient = require('mongodb').MongoClient;
 
+
+const uri = "mongodb+srv://apidemo:4leqBiTA5FXSGjKK@reptilecove.5p5gt.mongodb.net/ReptileCove?retryWrites=true&w=majority";
+mongoose.connect(
+	uri,
+	{
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useFindAndModify: false
+	},
+	err => {
+		if (err) {
+			console.log("Error connecting to database", err)
+		} else {
+			console.log("Connected to database!")
+		}
+	}
+)
+
+// Routes for pages 
 
 var usersRouter = require('./routes/users')
 var blogRouter = require('./routes/blog')
@@ -14,7 +35,7 @@ var rescuesRouter = require('./routes/rescues')
 var snakesRouter = require('./routes/snakes')
 
 var app = express()
-const port = 3000
+var port = 4000
 
 // Middleware
 
