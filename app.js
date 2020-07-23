@@ -10,7 +10,7 @@ const mongoose = require("mongoose");
 const MongoClient = require('mongodb').MongoClient;
 
 const app = express()
-const port = 4000
+const port = 3000
 const uri = "mongodb+srv://apidemo:4leqBiTA5FXSGjKK@reptilecove.5p5gt.mongodb.net/ReptileCove?retryWrites=true&w=majority";
 mongoose.connect(
 	uri,
