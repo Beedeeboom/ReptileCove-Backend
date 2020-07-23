@@ -1,15 +1,16 @@
-var http = require("http")
-var createError = require('http-errors')
-var express = require('express')
-var path = require('path')
-var cookieParser = require('cookie-parser')
-var bodyParser = require("body-parser")
-var logger = require('morgan')
-var cors = require('cors')
-var mongoose = require("mongoose");
-var MongoClient = require('mongodb').MongoClient;
+const http = require("http")
+const createError = require('http-errors')
+const express = require('express')
+const path = require('path')
+const cookieParser = require('cookie-parser')
+const bodyParser = require("body-parser")
+const logger = require('morgan')
+const cors = require('cors')
+const mongoose = require("mongoose");
+const MongoClient = require('mongodb').MongoClient;
 
-
+const app = express()
+const port = 4000
 const uri = "mongodb+srv://apidemo:4leqBiTA5FXSGjKK@reptilecove.5p5gt.mongodb.net/ReptileCove?retryWrites=true&w=majority";
 mongoose.connect(
 	uri,
@@ -29,13 +30,12 @@ mongoose.connect(
 
 // Routes for pages 
 
-var usersRouter = require('./routes/users')
-var blogRouter = require('./routes/blog_routes')
-var rescuesRouter = require('./routes/rescues')
-var snakesRouter = require('./routes/snakes')
+const usersRouter = require('./routes/users')
+const blogRouter = require('./routes/blog_routes')
+const rescuesRouter = require('./routes/rescues')
+const snakesRouter = require('./routes/snakes')
 
-var app = express()
-var port = 4000
+
 
 // Middleware
 
@@ -72,3 +72,5 @@ app.use(function(err, req, res, next) {
 })
 
 module.exports = app
+
+app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
