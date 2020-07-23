@@ -38,8 +38,8 @@ mongoose.connect(
 
 const usersRouter = require('./routes/users_routes')
 const blogRouter = require('./routes/blog_routes')
-const rescuesRouter = require('./routes/rescues_routes')
-const snakesRouter = require('./routes/catchers_routes')
+const rescuesRouter = require('./routes/rescue_routes')
+const catcherRouter = require('./routes/catcher_routes')
 
 
 
@@ -73,7 +73,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/users', usersRouter)
 app.use('/blog', blogRouter)
 app.use('/rescues', rescuesRouter)
-app.use('/snakes', snakesRouter)
+app.use('/catcher', catcherRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
