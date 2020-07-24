@@ -16,7 +16,7 @@ const {User} = require('./models/user')
 require('./passport')
 
 const app = express()
-const port = 3000
+const port = 5000
 const uri = "mongodb+srv://apidemo:4leqBiTA5FXSGjKK@reptilecove.5p5gt.mongodb.net/ReptileCove?retryWrites=true&w=majority";
 mongoose.connect(
 	uri,
@@ -48,13 +48,10 @@ const snakesRouter = require('./routes/catchers_routes')
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'))
 // app.set('view engine', 'jade')
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
+// app.use(bodyParser.json())
+// app.use(bodyParser.urlencoded({extended: true}))
 
-app.use(cors({
-	origin: "http://localhost:3000",
-	credentials: true
-}))
+app.use(cors())
 
 app.use(session({
 	secret: "fooBar",
@@ -67,32 +64,17 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser("fooBar"))
 
-app.use(passport.initalize())
+app.use(passport.initialize())
 app.use(passport.session())
 
-app.use(express.static(path.join(__dirname, 'public')))
 
 
-app.use('/users', usersRouter)
+
+// app.use('/users', usersRouter)
 app.use('/blog', blogRouter)
 app.use('/rescues', rescuesRouter)
 app.use('/snakes', snakesRouter)
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404))
-})
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {}
-
-  // render the error page
-  res.status(err.status || 500)
-  res.render('error')
-})
 
 //end of Middleware
 
@@ -131,13 +113,14 @@ app.post("/users/login", (req, res, next) => {
 })
 
 app.post('/users/register', (req, res) => {
+	console.log("test")
     User.register(new User({username: req.body.username, displayName: req.body.username}), req.body.password, function(err, user) {
         if (err) {
             console.log(err)
-            return res.send({fail: err})
+            res.json({fail: err})
         } else {
             passport.authenticate('local')(req, res, function() {
-                return res.send(user)
+                res.json({username: user.username, displayName: user.displayName})
             })
         }
     })
@@ -153,6 +136,23 @@ app.get('/users/logout', (req, res) => {
 })
 //end of auth Routes
 
-module.exports = app
-
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+	next(createError(404))
+  })
+  
+  // error handler
+  app.use(function(err, req, res, next) {
+	// set locals, only providing error in development
+	res.locals.message = err.message;
+	res.locals.error = req.app.get('env') === 'development' ? err : {}
+  
+	// render the error page
+	res.status(err.status || 500)
+	res.render('error')
+  })
+  
+app.use(express.static(path.join(__dirname, 'public')))
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
+
+module.exports = app
