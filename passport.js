@@ -3,14 +3,15 @@ const passport = require('passport')
 const {User, OauthUser} = require('./models/user')
 
 passport.serializeUser(function(user, done) {
+    done(null, user._id)
+})
+
+passport.deserializeUser(function(id, done) {
+    const user = User.findById(id)
     done(null, user)
 })
 
-passport.deserializeUser(function(user, done) {
-    done(null, user)
-})
-
-// passport.use(User.createStrategy());
+passport.use(User.createStrategy());
 
 // passport.use(new GoogleStrategy({
 //     clientID: "876353669737-s4f71ldd024ckdpp4d45j6ovu4v5b0as.apps.googleusercontent.com",
