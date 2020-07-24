@@ -83,19 +83,19 @@ app.get('/failed', (req, res) => {
     res.redirect('http://localhost:3000')
 })
 
-app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }))
+// app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }))
 
-app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/failed' }),
-  function(req, res) {
-        res.redirect('http://localhost:3000')
-  });
+// app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/failed' }),
+//   function(req, res) {
+//         res.redirect('http://localhost:3000')
+//   });
 
-app.get('/auth/discord', passport.authenticate('discord'));
+// app.get('/auth/discord', passport.authenticate('discord'));
 
-app.get('/auth/discord/callback', passport.authenticate('discord', {failureRedirect: '/'}), 
-    function(req, res) {
-        res.redirect('http://localhost:3000')
-});
+// app.get('/auth/discord/callback', passport.authenticate('discord', {failureRedirect: '/'}), 
+//     function(req, res) {
+//         res.redirect('http://localhost:3000')
+// });
 
 
 app.post("/users/login", (req, res, next) => {
