@@ -16,10 +16,7 @@ const {User} = require('./models/user')
 require('./passport')
 require('dotenv').config()
 
-const app = express()
-const port = 5000
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.1rjn7.mongodb.net/${db}?retryWrites=true&w=majority`;
-
+let db
 if (process.env.ENV == 'test') {
 	db = process.env.DB_TEST
 } else if (process.env.ENV == 'development') {
@@ -28,6 +25,9 @@ if (process.env.ENV == 'test') {
 	db = process.env.DB_PROD
 }
 
+const app = express()
+const port = 5000
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@reptilecove.5p5gt.mongodb.net/${db}?retryWrites=true&w=majority`;
 mongoose.connect(
 	uri,
 	{
