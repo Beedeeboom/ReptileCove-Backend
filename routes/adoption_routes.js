@@ -2,7 +2,7 @@ var express = require('express')
 const bodyParser = require("body-parser")
 var router = express.Router()
 
-var Adoption = require('../models/adoptions')
+var Adoption = require('../models/adoption')
 
 // Forcing express to pick up data
 var jsonParser = bodyParser.json()
