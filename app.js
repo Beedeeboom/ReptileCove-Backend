@@ -73,14 +73,15 @@ app.use(passport.session())
 // app.use('/users', usersRouter)
 app.use('/blog', blogRouter)
 app.use('/rescues', rescuesRouter)
-app.use('/catcher', catcherRouter)
+app.use('/catchers', catcherRouter)
+app.use('/adoptions', adoptionRouter)
 
 
 //end of Middleware
 
 //Start of auth Routes
 app.get('/failed', (req, res) => {
-    res.redirect('http://localhost:3000')
+    res.redirect(url)
 })
 
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }))
