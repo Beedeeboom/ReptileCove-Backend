@@ -14,10 +14,20 @@ const MongoStore = require('connect-mongo')(session);
 const {User} = require('./models/user')
 
 require('./passport')
+require('dotenv').config()
+
+let db
+if (process.env.ENV == 'test') {
+	db = process.env.DB_TEST
+} else if (process.env.ENV == 'development') {
+	db = process.env.DB_DEV
+} else {
+	db = process.env.DB_PROD
+}
 
 const app = express()
 const port = 5000
-const uri = "mongodb+srv://apidemo:4leqBiTA5FXSGjKK@reptilecove.5p5gt.mongodb.net/ReptileCove?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@reptilecove.5p5gt.mongodb.net/${db}?retryWrites=true&w=majority`;
 mongoose.connect(
 	uri,
 	{
@@ -51,7 +61,20 @@ const catcherRouter = require('./routes/catcher_routes')
 // app.use(bodyParser.json())
 // app.use(bodyParser.urlencoded({extended: true}))
 
-app.use(cors())
+
+let url
+if (process.env.ENV == 'development') {
+    url = "http://localhost:3000"
+} else  {
+    url = "https://reptilecove.ml"
+}
+
+app.use(cors(
+    {
+    origin: url,
+    credentials: true
+}
+))
 
 app.use(session({
 	secret: "fooBar",
@@ -84,19 +107,19 @@ app.get('/failed', (req, res) => {
     res.redirect(url)
 })
 
-app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }))
+// app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }))
 
-app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/failed' }),
-  function(req, res) {
-        res.redirect('http://localhost:3000')
-  });
+// app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/failed' }),
+//   function(req, res) {
+//         res.redirect('http://localhost:3000')
+//   });
 
-app.get('/auth/discord', passport.authenticate('discord'));
+// app.get('/auth/discord', passport.authenticate('discord'));
 
-app.get('/auth/discord/callback', passport.authenticate('discord', {failureRedirect: '/'}), 
-    function(req, res) {
-        res.redirect('http://localhost:3000')
-});
+// app.get('/auth/discord/callback', passport.authenticate('discord', {failureRedirect: '/'}), 
+//     function(req, res) {
+//         res.redirect('http://localhost:3000')
+// });
 
 
 app.post("/users/login", (req, res, next) => {
