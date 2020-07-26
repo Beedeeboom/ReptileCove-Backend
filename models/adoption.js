@@ -1,11 +1,7 @@
 const mongoose = require("mongoose")
 
-// Define Blog Schema
-const BlogSchema = new mongoose.Schema({
-	// _id: {
-	// 	type: String,
-	// 	required: true
-	// },
+// Define Adoption Schema
+const AdoptionSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -25,4 +21,4 @@ const BlogSchema = new mongoose.Schema({
 	category: String
 })
 
-module.exports = mongoose.model("Blog", BlogSchema)
+module.exports = mongoose.model("Adoption", AdoptionSchema)

@@ -15,11 +15,22 @@ const {User} = require('./models/user')
 const { cloudinary } = require('./utils/cloudinary')
 
 require('./passport')
+require('dotenv').config()
+
+let db
+if (process.env.ENV == 'test') {
+	db = process.env.DB_TEST
+} else if (process.env.ENV == 'development') {
+	db = process.env.DB_DEV
+} else {
+	db = process.env.DB_PROD
+}
 
 const app = express()
-// const port = 5000
-const port = process.env.PORT || 5000
-const uri = "mongodb+srv://apidemo:4leqBiTA5FXSGjKK@reptilecove.5p5gt.mongodb.net/ReptileCove?retryWrites=true&w=majority";
+
+const port = 5000
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@reptilecove.5p5gt.mongodb.net/${db}?retryWrites=true&w=majority`;
+
 mongoose.connect(
 	uri,
 	{
@@ -42,6 +53,7 @@ const usersRouter = require('./routes/users_routes')
 const blogRouter = require('./routes/blog_routes')
 const rescuesRouter = require('./routes/rescue_routes')
 const catcherRouter = require('./routes/catcher_routes')
+const adoptionRouter = require('./routes/adoption_routes')
 
 
 
@@ -55,7 +67,20 @@ const catcherRouter = require('./routes/catcher_routes')
 app.use(express.json({ limit: '50mb' }))
 app.use(express.urlencoded({ limit: '50mb', extended: true }))
 
-app.use(cors())
+
+let url
+if (process.env.ENV == 'development') {
+    url = "http://localhost:3000"
+} else  {
+    url = "https://reptilecove.ml"
+}
+
+app.use(cors(
+    {
+    origin: url,
+    credentials: true
+}
+))
 
 app.use(session({
 	secret: "fooBar",
@@ -77,7 +102,8 @@ app.use(passport.session())
 // app.use('/users', usersRouter)
 app.use('/blog', blogRouter)
 app.use('/rescues', rescuesRouter)
-app.use('/catcher', catcherRouter)
+app.use('/catchers', catcherRouter)
+app.use('/adoptions', adoptionRouter)
 
 
 //end of Middleware
@@ -109,7 +135,7 @@ app.post('/api/upload', async (req, res) => {
 
 //Start of auth Routes
 app.get('/failed', (req, res) => {
-    res.redirect('http://localhost:3000')
+    res.redirect(url)
 })
 
 app.post("/users/login", (req, res, next) => {

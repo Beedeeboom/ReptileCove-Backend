@@ -1,1 +1,6 @@
 .env
+node_modules
+# Commented out for collaborative development
+# yarn.lock
+# package.json
+
