@@ -50,6 +50,7 @@ const usersRouter = require('./routes/users_routes')
 const blogRouter = require('./routes/blog_routes')
 const rescuesRouter = require('./routes/rescue_routes')
 const catcherRouter = require('./routes/catcher_routes')
+const adoptionRouter = require('./routes/adoption_routes')
 
 
 
@@ -96,7 +97,8 @@ app.use(passport.session())
 // app.use('/users', usersRouter)
 app.use('/blog', blogRouter)
 app.use('/rescues', rescuesRouter)
-app.use('/catcher', catcherRouter)
+app.use('/catchers', catcherRouter)
+app.use('/adoptions', adoptionRouter)
 
 
 //end of Middleware
