@@ -50,6 +50,7 @@ const usersRouter = require('./routes/users_routes')
 const blogRouter = require('./routes/blog_routes')
 const rescuesRouter = require('./routes/rescue_routes')
 const catcherRouter = require('./routes/catcher_routes')
+const adoptionRouter = require('./routes/adoption_routes')
 
 
 
