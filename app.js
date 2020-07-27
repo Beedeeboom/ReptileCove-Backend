@@ -12,6 +12,7 @@ const passport = require('passport')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
 const {User} = require('./models/user')
+const { cloudinary } = require('./utils/cloudinary')
 
 require('./passport')
 require('dotenv').config()
@@ -26,8 +27,10 @@ if (process.env.ENV == 'test') {
 }
 
 const app = express()
+
 const port = 5000
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@reptilecove.5p5gt.mongodb.net/${db}?retryWrites=true&w=majority`;
+
 mongoose.connect(
 	uri,
 	{
@@ -50,6 +53,7 @@ const usersRouter = require('./routes/users_routes')
 const blogRouter = require('./routes/blog_routes')
 const rescuesRouter = require('./routes/rescue_routes')
 const catcherRouter = require('./routes/catcher_routes')
+const adoptionRouter = require('./routes/adoption_routes')
 
 
 
@@ -60,6 +64,8 @@ const catcherRouter = require('./routes/catcher_routes')
 // app.set('view engine', 'jade')
 // app.use(bodyParser.json())
 // app.use(bodyParser.urlencoded({extended: true}))
+app.use(express.json({ limit: '50mb' }))
+app.use(express.urlencoded({ limit: '50mb', extended: true }))
 
 
 let url
@@ -96,30 +102,41 @@ app.use(passport.session())
 // app.use('/users', usersRouter)
 app.use('/blog', blogRouter)
 app.use('/rescues', rescuesRouter)
-app.use('/catcher', catcherRouter)
+app.use('/catchers', catcherRouter)
+app.use('/adoptions', adoptionRouter)
 
 
 //end of Middleware
+
+// Start of Cloudinary Routes
+app.get('/api/images', async (req, res) => {
+    const { resources } = await cloudinary.search
+        .expression('folder:ml_default')
+        .sort_by('public_id', 'desc')
+        .max_results(30)
+        .execute();
+
+    const publicIds = resources.map((file) => file.public_id);
+    res.send(publicIds);
+});
+app.post('/api/upload', async (req, res) => {
+    try {
+        const fileStr = req.body.data;
+        const uploadResponse = await cloudinary.uploader.upload(fileStr, {});
+        console.log(uploadResponse);
+        res.json({ msg: 'yaya' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ err: 'Something went wrong' });
+    }
+});
+
+// End of Cloudinary Routes
 
 //Start of auth Routes
 app.get('/failed', (req, res) => {
     res.redirect(url)
 })
-
-// app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }))
-
-// app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/failed' }),
-//   function(req, res) {
-//         res.redirect('http://localhost:3000')
-//   });
-
-// app.get('/auth/discord', passport.authenticate('discord'));
-
-// app.get('/auth/discord/callback', passport.authenticate('discord', {failureRedirect: '/'}), 
-//     function(req, res) {
-//         res.redirect('http://localhost:3000')
-// });
-
 
 app.post("/users/login", (req, res, next) => {
     passport.authenticate('local', (err, user) => {
@@ -171,11 +188,14 @@ app.use(function(req, res, next) {
 	res.locals.error = req.app.get('env') === 'development' ? err : {}
   
 	// render the error page
-	res.status(err.status || 500)
+	res.status(err.status || 500) 
 	res.render('error')
-  })
+})
 
 app.use(express.static(path.join(__dirname, 'public')))
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
+app.listen(port, () => {
+    console.log(`listening on port ${port}`)
+})
+// app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
 
 module.exports = app

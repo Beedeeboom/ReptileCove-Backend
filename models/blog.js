@@ -2,6 +2,10 @@ const mongoose = require("mongoose")
 
 // Define Blog Schema
 const BlogSchema = new mongoose.Schema({
+	// _id: {
+	// 	type: String,
+	// 	required: true
+	// },
     title: {
         type: String,
         required: true
