@@ -188,9 +188,9 @@ app.use(function(req, res, next) {
 	res.locals.error = req.app.get('env') === 'development' ? err : {}
   
 	// render the error page
-	res.status(err.status || 500)
+	res.status(err.status || 500) 
 	res.render('error')
-  })
+})
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.listen(port, () => {
