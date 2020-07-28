@@ -72,7 +72,7 @@ let url
 if (process.env.ENV == 'development') {
     url = "http://localhost:3000"
 } else  {
-    url = "https://reptilecove.ml"
+    url = "https://www.reptilecove.ml/"
 }
 
 app.use(cors(
