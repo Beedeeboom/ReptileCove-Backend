@@ -5,7 +5,7 @@ var router = express.Router()
 var Rescue = require('../models/rescue')
 
 
-var jsonParser = bodyParser.json
+var jsonParser = bodyParser.json()
 
 /* GET all */
 router.get('/', function(req, res, next) {
