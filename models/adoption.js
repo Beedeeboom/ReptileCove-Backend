@@ -2,21 +2,33 @@ const mongoose = require("mongoose")
 
 // Define Adoption Schema
 const AdoptionSchema = new mongoose.Schema({
-    title: {
+    animalName: {
         type: String,
         required: true
     },
-	content: {
+	species: {
 		type: String,
 		required: true
 	},
-    create_date: {
-		type: Date,
-		required: false
+	age: {
+		type: Number,
+		required: true,
 	},
-	modified_date: {
-		type: Date,
-		required: false
+	husbandryRequirements: {
+		type: String,
+		required: true,
+	},
+	temperament: {
+		type: String,
+		required: true,
+	},
+	medicalHistory: {
+		type: String,
+		required: true
+	},
+	contactEmail: {
+		type: String,
+		required: true
 	},
 	category: String
 })
