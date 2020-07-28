@@ -6,8 +6,9 @@ passport.serializeUser(function(user, done) {
     done(null, user._id)
 })
 
-passport.deserializeUser(function(id, done) {
-    const user = User.findById(id)
+passport.deserializeUser(async function(id, done) {
+
+    const user = await User.findById(id)
     done(null, user)
 })
 
