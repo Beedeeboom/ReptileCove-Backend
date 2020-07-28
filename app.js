@@ -110,16 +110,6 @@ app.use('/adoptions', adoptionRouter)
 //end of Middleware
 
 // Start of Cloudinary Routes
-app.get('/api/images', async (req, res) => {
-    const { resources } = await cloudinary.search
-        .expression('folder:ml_default')
-        .sort_by('public_id', 'desc')
-        .max_results(30)
-        .execute();
-
-    const publicIds = resources.map((file) => file.public_id);
-    res.send(publicIds);
-});
 app.post('/api/upload', async (req, res) => {
     try {
         const fileStr = req.body.data;
@@ -130,6 +120,17 @@ app.post('/api/upload', async (req, res) => {
         console.error(err);
         res.status(500).json({ err: 'Something went wrong' });
     }
+});
+
+app.get('/api/images', async (req, res) => {
+    const { resources } = await cloudinary.search
+        .expression('folder:ml_default')
+        .sort_by('public_id', 'desc')
+        .max_results(30)
+        .execute();
+
+    const publicIds = resources.map((file) => file.public_id);
+    res.send(publicIds);
 });
 
 // End of Cloudinary Routes
