@@ -2,23 +2,26 @@ const mongoose = require("mongoose")
 
 // Define Catcher Schema
 const CatcherSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true
-    },
-	content: {
+    catcherName: {
 		type: String,
 		required: true
 	},
-    create_date: {
-		type: Date,
-		required: false
+	city: { 
+		type: String,
+		required: true
 	},
-	modified_date: {
-		type: Date,
-		required: false
+	postcode: { 
+		type: Number,
+		required: true
 	},
-	category: String
+	state: {
+		type: String,
+		required: true
+	},	
+	website: {
+		type: String,
+		required: true
+	}
 })
 
 module.exports = mongoose.model("Catcher", CatcherSchema)

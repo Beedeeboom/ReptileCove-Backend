@@ -2,27 +2,26 @@ const mongoose = require("mongoose")
 
 // Define Blog Schema
 const RescueSchema = new mongoose.Schema({
-	// _id: {
-	// 	type: String,
-	// 	required: true
-	// },
-    title: {
-        type: String,
-        required: true
-    },
-	content: {
+	rescueName: {
 		type: String,
 		required: true
 	},
-    create_date: {
-		type: Date,
-		required: false
+	city: { 
+		type: String,
+		required: true
 	},
-	modified_date: {
-		type: Date,
-		required: false
+	postcode: { 
+		type: Number,
+		required: true
 	},
-	category: String
+	state: {
+		type: String,
+		required: true
+	},	
+	website: {
+		type: String,
+		required: true
+	}
 })
 
 module.exports = mongoose.model("Rescue", RescueSchema)
