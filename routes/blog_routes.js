@@ -43,7 +43,7 @@ router.delete('/:id', function(req, res, next) {
 router.post('/', jsonParser, function(req, res, next) {
   const blog = new Blog({ ...req.body })
   blog.save()
-    .then(() => res.send(201)) // 201: created
+    .then((newDocument) => res.status(201).send(newDocument._id)) // 201: created
     .catch((err) => res.status(400).send(err))
 })
 
