@@ -30,7 +30,7 @@ router.put('/:id', jsonParser, function(req, res, next) {
 
 // Delete
 router.delete('/:id', function(req, res, next) {
-  Catcher.remove({ '_id': req.params.id })
+  Catcher.deleteOne({ '_id': req.params.id })
     .then(() => res.send(202)) // 202: accepted
     .catch((err) => res.status(404).send(err))
 })

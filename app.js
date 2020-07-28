@@ -89,8 +89,9 @@ app.use(session({
 	store: new MongoStore({mongooseConnection: mongoose.connection}),
 }))
 app.use(logger('dev'))
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+// app.use(express.json())
+// app.use(express.urlencoded({ extended: false }))
+
 app.use(cookieParser("fooBar"))
 
 app.use(passport.initialize())
@@ -189,8 +190,9 @@ app.use(function(req, res, next) {
 	res.locals.error = req.app.get('env') === 'development' ? err : {}
   
 	// render the error page
+
 	res.status(err.status || 500)
-	res.render('error')
+	res.send('error')
   })
 
 app.use(express.static(path.join(__dirname, 'public')))
