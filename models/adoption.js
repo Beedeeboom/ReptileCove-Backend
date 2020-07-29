@@ -2,6 +2,9 @@ const mongoose = require("mongoose")
 
 // Define Adoption Schema
 const AdoptionSchema = new mongoose.Schema({
+	imageUrl: {
+		type: String
+	},
     animalName: {
         type: String,
         required: true
