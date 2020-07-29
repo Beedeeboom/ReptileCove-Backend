@@ -24,7 +24,7 @@ router.get('/:id', function(req, res, next) {
 // Update
 router.put('/:id', jsonParser, function(req, res, next) {
   Adoption.updateOne({ '_id': req.params.id }, { ...req.body }).orFail()
-    .then(() => res.send(202)) // 202: accepted
+  .then((newDocument) => res.status(202).send(newDocument._id)) // 202: accepted
     .catch((err) => res.status(400).send(err))
 })
 
@@ -39,7 +39,7 @@ router.delete('/:id', function(req, res, next) {
 router.post('/', jsonParser, function(req, res, next) {
   const adoption = new Adoption({ ...req.body })
   adoption.save()
-    .then(() => res.send(201)) // 201: created
+  .then((newDocument) => res.status(201).send(newDocument._id)) // 201: created
     .catch((err) => res.status(400).send(err))
 })
 

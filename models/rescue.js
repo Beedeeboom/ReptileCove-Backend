@@ -1,5 +1,4 @@
 const mongoose = require("mongoose")
-
 // Define Blog Schema
 const RescueSchema = new mongoose.Schema({
 	rescueName: {
