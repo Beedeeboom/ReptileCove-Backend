@@ -24,7 +24,7 @@ router.get('/:id', function(req, res, next) {
 // Update
 router.put('/:id', jsonParser, function(req, res, next) {
   Blog.updateOne({ '_id': req.params.id }, { ...req.body }).orFail()
-    .then(() => res.send(202)) // 202: accepted
+    .then((newDocument) => res.status(202).send(newDocument._id)) // 202: accepted
     .catch((err) => res.status(400).send(err))
 })
 
