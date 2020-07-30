@@ -252,12 +252,28 @@ Reptile Cove seeks to attract an audience of all ages to educate Australians on 
 ## Building the Application
 After coming up with our initial concept, we spent a week planning how we want the application to look and function, as well as thinking about features we wanted to implement. We then started building the app, by setting up the basic structure for both front and back ends. Taz set up the frontend, while Steph set up the back end, however throughout the building process, we decided we wanted to learn as many aspects of the entire tech stack as possible, so we both worked on seperate components within the App, utilising the entire MERN stack.
 
-We used Agile Project Management Methodology to track our sprints, and adjust our scope as necessary, to ensure we would meet the MVP requirements for this assignment.
+We used Agile Project Management Methodology to track our sprints, and adjust our scope as necessary, to ensure we would meet the MVP requirements for this assignment. We assigned ourselves different tasks, and aimed to complete them within certain sprints. Anything we didn't manage to complete, we would move to another sprint as well as adjust what was realistic to complete within the assignment timeframe. 
 
 #### Challenges
+We encountered a number of challenges throughout the development process, one of the biggest arguably being how the entire MERN stack is integrated. It was particularly challenging trying to figure out how to connect the front and back end repositories, and get them working together seamlessly.
+
+Some other challenges we dealt with included:
+- CRUD operations to work on the front end
+- Passport Authentication/User permissions
+- Google maps for the Rescues and Snake Catchers pages
+- Stripe payments for the donations
 
 
 #### Scope
-
+Throughout the development process, we had to adjust our scope. Our initial plan for the Application was quite ambitious, and we realised throughout our sprints that we would have to prioritise what we wanted for the MVP. We intend to continue to add to this project outside of the assignment submission so we can learn more and finish our inital idea, however, we needed to cut a few of the features we had initially planned on implementing.
 
 #### Testing
+For testing, we set up different environments, for development, production and testing. We ensured that the features we implemented worked across all environments and platforms. 
+
+We also got some friends and family to test the final application, and give us feedback on what does/doesn't work as planned, and how we could improve the site in the future. 
+
+#### What went well
+While we faced some challenges with this project, we also learnt a lot! One of the most rewarding achievements was working as a solid team throughout the entire planning and development stages. We fell into a good stride, and kept open communication about our progress, understanding, and ability to complete the tasks we were working on. We continuously helped each other both with the actual build of the site, as well as keeping each other sane when things felt overwhelming.
+
+#### What we learnt
+First and foremost, we learnt that we work really well as a team, and we plan to make more side projects together in the future. We also learnt that collaborative projects are a great way to share knowledge and help each other improve in areas we aren't so confident in. We're proud of the final product we have produced for this assignment, and we have a better idea of how to move forward and continue to make this application more solid.
